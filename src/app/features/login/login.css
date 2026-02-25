@@ -1,0 +1,165 @@
+:host {
+  height: 100%;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+financy-logo {
+  margin-top: 3rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: white;
+  width: 448px;
+  border-radius: 12px;
+}
+
+.top-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
+h1 {
+  color: var(--gray-800);
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 28px;
+}
+
+h2 {
+  color: var(--gray-600);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remember-login {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.remember-login input {
+  accent-color: var(--brand-base);
+  width: 16px;
+  height: 16px;
+}
+
+.login {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+
+  background-color: var(--brand-base);
+  color: white;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 24px;
+  padding: 12px 0;
+  border-radius: 8px;
+  transition: 0.2s;
+  margin-top: 8px;
+  user-select: none;
+}
+
+.login:hover {
+  transform: scale(103%);
+}
+
+.login:active {
+  transform: scale(101%);
+}
+
+.login:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
+}
+
+.divide-line {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.divide-line span {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--gray-500);
+  padding: 0 12px;
+  user-select: none;
+}
+
+.divide-line .line {
+  height: 1px;
+  flex-grow: 1;
+  background-color: var(--gray-300);
+}
+
+.create-account-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.create-account {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+
+  color: var(--gray-700);
+  gap: 8px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  width: 100%;
+  line-height: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 12px 0;
+  user-select: none;
+  transition: 0.2s;
+}
+
+.create-account:hover {
+  transform: scale(103%);
+}
+
+.create-account:active {
+  transform: scale(101%);
+}
+
+.create-account:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
+}

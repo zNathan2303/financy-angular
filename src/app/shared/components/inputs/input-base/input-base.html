@@ -1,0 +1,8 @@
+<label [ngClass]="getStateClasses()" [for]="fieldName()">
+  {{ labelText() }}
+</label>
+<div class="input-container" [ngClass]="getStateClasses()" (click)="inputRef.focus()">
+  <ng-content />
+  <input #inputRef [id]="fieldName()" [type]="type()" [formControl]="formControlInput()" [placeholder]="placeholder()"
+    (focus)="gainFocus()" (blur)="isFocused.set(false)" />
+</div>

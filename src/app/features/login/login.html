@@ -1,0 +1,36 @@
+<financy-logo></financy-logo>
+<main>
+  <div class="top-items">
+    <h1>Fazer login</h1>
+    <h2>Entre na sua conta para iniciar</h2>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <input-base [labelText]="'E-mail'" [formControlInput]="emailFormControl" [fieldName]="'email'"
+      [placeholder]="'mail@exemplo.com'" [type]="'email'">
+      <lucide-icon [img]="Mail" size="16" />
+    </input-base>
+    <password-input [formControlPassword]="passwordFormControl" />
+    <div class="options">
+      <label for="remember-login" class="remember-login">
+        <input type="checkbox" id="remember-login">
+        Lembrar-me
+      </label>
+      <a class="link-to-another-page" href="#">Recuperar senha</a>
+    </div>
+    <button type="submit" class="login">
+      Entrar
+    </button>
+  </form>
+  <div class="divide-line">
+    <div class="line"></div>
+    <span>ou</span>
+    <div class="line"></div>
+  </div>
+  <div class="create-account-container">
+    <p>Ainda não tem uma conta?</p>
+    <button class="create-account">
+      <lucide-icon [img]="UserRoundPlus" size="18" />
+      Criar conta
+    </button>
+  </div>
+</main>

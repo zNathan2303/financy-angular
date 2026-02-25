@@ -1,1 +1,88 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Brand */
+  --brand-dark: #124b2b;
+  --brand-base: #1f6f43;
+
+  /* Grayscale */
+  --gray-800: #111827;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f8f9fa;
+
+  /* Feedback */
+  --danger: #ef4444;
+  --sucess: #19ad70;
+
+  /* Colors */
+  --blue-dark: #1d4ed8;
+  --blue-base: #2563eb;
+  --blue-light: #dbeafe;
+
+  --purple-dark: #7e22ce;
+  --purple-base: #9333ea;
+  --purple-light: #f3e8ff;
+
+  --pink-dark: #be185d;
+  --pink-base: #db2777;
+  --pink-light: #fce7f3;
+
+  --red-dark: #b91c1c;
+  --red-base: #dc2626;
+  --red-light: #fee2e2;
+
+  --orange-dark: #c2410c;
+  --orange-base: #ea580c;
+  --orange-light: #ffedd5;
+
+  --yellow-dark: #a16207;
+  --yellow-base: #ca8a04;
+  --yellow-light: #f7f3ca;
+
+  --green-dark: #15803d;
+  --green-base: #16a34a;
+  --green-light: #e0fae9;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100dvh;
+  background-color: var(--gray-100);
+}
+
+app-root {
+  flex-grow: 1;
+}
+
+.link-to-another-page {
+  color: var(--brand-base);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.link-to-another-page:hover {
+  text-decoration: underline;
+}
+
+.link-to-another-page:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
+}
+
+lucide-icon {
+  display: grid;
+  place-items: center;
+}
