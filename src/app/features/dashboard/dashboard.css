@@ -1,0 +1,97 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px;
+  gap: 24px;
+}
+
+.top-info {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-areas: 'a1 a2 a3';
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+.top-info:nth-child(1) {
+  grid-area: a1;
+}
+
+.top-info:nth-child(2) {
+  grid-area: a2;
+}
+
+.top-info:nth-child(3) {
+  grid-area: a3;
+}
+
+.card {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  border: 1px solid var(--gray-200);
+}
+
+.card > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card > div > p {
+  font-size: 12px;
+  font-weight: 500;
+  word-spacing: 0.6;
+  line-height: 16px;
+  color: var(--gray-500);
+}
+
+.card > p {
+  color: var(--gray-800);
+  font-weight: 700;
+  line-height: 32px;
+  font-size: 28px;
+}
+
+.balance-icon {
+  color: var(--purple-base);
+}
+
+.income-icon {
+  color: var(--brand-base);
+}
+
+.expense-icon {
+  color: var(--red-base);
+}
+
+.transactions-and-categories {
+  display: grid;
+  align-items: start;
+  grid-template-areas: 'a1 a1 a2';
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+:host ::ng-deep .transactions-and-categories app-recent-transactions {
+  grid-area: a1;
+}
+
+:host ::ng-deep .transactions-and-categories app-total-per-category {
+  grid-area: a2;
+}

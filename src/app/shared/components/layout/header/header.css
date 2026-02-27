@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  align-items: center;
+  background-color: white;
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+}
+
+.link-to-another-page {
+  color: var(--gray-600);
+}
+
+.link-to-another-page:hover.page-on {
+  text-decoration: none;
+}
+
+.link-to-another-page.page-on {
+  color: var(--brand-base);
+}
+
+.profile-icon {
+  height: 36px;
+  width: 36px;
+  color: var(--gray-800);
+  background-color: var(--gray-300);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50px;
+  cursor: pointer;
+}

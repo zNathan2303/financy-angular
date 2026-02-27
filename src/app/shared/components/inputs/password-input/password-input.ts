@@ -4,7 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { LucideAngularModule, EyeClosed, Eye, Lock } from 'lucide-angular';
 
 @Component({
-  selector: 'password-input',
+  selector: 'app-password-input',
   imports: [ReactiveFormsModule, NgClass, LucideAngularModule],
   templateUrl: './password-input.html',
   styleUrl: './password-input.css',

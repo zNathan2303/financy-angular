@@ -1,0 +1,39 @@
+<div class="header">
+  <p>TRANSAÇÕES RECENTES</p>
+  <a href="#" class="link-to-another-page">
+    Ver todas
+    <lucide-icon [img]="ChevronRight" size="20" />
+  </a>
+</div>
+@for (transaction of recentTransactions(); track transaction.id) {
+<div class="transaction">
+  <div class="icon-and-info">
+    <lucide-icon [ngClass]="`tag-${transaction.category.color}-color`"
+      [img]="getCategoryIcon(transaction.category.icon)" size="16" />
+    <div class="info">
+      <p class="description">{{ transaction.description }}</p>
+      <p class="date">{{ transaction.date | date:'dd/MM/yy'}}</p>
+    </div>
+  </div>
+  <div class="category">
+    <p [ngClass]="`tag-${transaction.category.color}-color`">
+      {{ transaction.category.title }}
+    </p>
+  </div>
+  <div class="value">
+    @if (transaction.income) {
+    <p>{{ transaction.value | currency:'BRL' : '+ R$'}}</p>
+    <lucide-icon [img]="CircleArrowUp" class="income-icon" />
+    } @else {
+    <p>{{ transaction.value | currency:'BRL' : '- R$' }}</p>
+    <lucide-icon [img]="CircleArrowDown" class="expense-icon" />
+    }
+  </div>
+</div>
+}
+<div class="new-transaction">
+  <button>
+    <lucide-icon [img]="Plus" size="20" />
+    <p>Nova transação</p>
+  </button>
+</div>

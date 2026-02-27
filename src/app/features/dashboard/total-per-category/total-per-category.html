@@ -1,0 +1,24 @@
+<div class="header" [ngClass]="{'no-categories': categoryTotalAmount().length === 0}">
+  <p>CATEGORIAS</p>
+  <a href="#" class="link-to-another-page">
+    Gerenciar
+    <lucide-icon [img]="ChevronRight" size="20" />
+  </a>
+</div>
+<div class="categories">
+  @for (category of categoryTotalAmount(); track category.id) {
+  <div class="category">
+    <div class="tag">
+      <p [ngClass]="`tag-${category.category.color}-color`">
+        {{ category.category.title }}
+      </p>
+    </div>
+    <div class="quantity">
+      <p>{{ category.items }} itens</p>
+    </div>
+    <div class="amount">
+      <p>{{ category.totalValue | currency:'BRL' }}</p>
+    </div>
+  </div>
+  }
+</div>

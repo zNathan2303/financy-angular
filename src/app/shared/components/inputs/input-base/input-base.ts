@@ -3,7 +3,7 @@ import { Component, input, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'input-base',
+  selector: 'app-input-base',
   imports: [ReactiveFormsModule, NgClass],
   templateUrl: './input-base.html',
   styleUrl: './input-base.css',

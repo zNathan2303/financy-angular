@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Logo } from '../../shared/components/icons/logo';
+import { Logo } from '../../shared/icons/logo';
 import { PasswordInput } from '../../shared/components/inputs/password-input/password-input';
 import { LucideAngularModule, Mail, UserRoundPlus } from 'lucide-angular';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputBase } from '../../shared/components/inputs/input-base/input-base';
 
 @Component({
-  selector: 'login-page',
+  selector: 'app-login-page',
   imports: [Logo, PasswordInput, LucideAngularModule, ReactiveFormsModule, InputBase],
   templateUrl: './login.html',
   styleUrl: './login.css',

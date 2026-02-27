@@ -1,0 +1,33 @@
+<app-header></app-header>
+<main>
+  <div class="top-info">
+    <div class="card">
+      <div>
+        <lucide-icon [img]="Wallet" size="20" class="balance-icon" />
+        <p>SALDO TOTAL</p>
+      </div>
+      <p>{{ totalBalance | currency:'BRL' }}</p>
+    </div>
+
+    <div class="card">
+      <div>
+        <lucide-icon [img]="CircleArrowUp" size="20" class="income-icon" />
+        <p>RECEITAS DO MÊS</p>
+      </div>
+      <p>{{ monthlyIncome | currency:'BRL' }}</p>
+    </div>
+
+    <div class="card">
+      <div>
+        <lucide-icon [img]="CircleArrowDown" size="20" class="expense-icon" />
+        <p>DESPESAS DO MÊS</p>
+      </div>
+      <p>{{ monthlyExpense | currency:'BRL' }}</p>
+    </div>
+  </div>
+
+  <div class="transactions-and-categories">
+    <app-recent-transactions [recentTransactions]="recentTransactions" />
+    <app-total-per-category [categoryTotalAmount]="categoryTotalAmount" />
+  </div>
+</main>

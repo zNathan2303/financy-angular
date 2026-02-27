@@ -8,6 +8,9 @@
   "projects": {
     "financy": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": "pt"
+      },
       "schematics": {},
       "root": "",
       "sourceRoot": "src",

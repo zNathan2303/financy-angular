@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-financy-logo {
+app-logo {
   margin-top: 3rem;
 }
 
@@ -65,6 +65,10 @@ form {
   accent-color: var(--brand-base);
   width: 16px;
   height: 16px;
+}
+
+.link-to-another-page {
+  color: var(--brand-base);
 }
 
 .login {

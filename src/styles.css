@@ -65,7 +65,6 @@ app-root {
 }
 
 .link-to-another-page {
-  color: var(--brand-base);
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
@@ -85,4 +84,44 @@ app-root {
 lucide-icon {
   display: grid;
   place-items: center;
+}
+
+.tag-gray-color {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.tag-blue-color {
+  background-color: var(--blue-light);
+  color: var(--blue-dark);
+}
+
+.tag-purple-color {
+  background-color: var(--purple-light);
+  color: var(--purple-dark);
+}
+
+.tag-pink-color {
+  background-color: var(--pink-light);
+  color: var(--pink-dark);
+}
+
+.tag-red-color {
+  background-color: var(--red-light);
+  color: var(--red-dark);
+}
+
+.tag-orange-color {
+  background-color: var(--orange-light);
+  color: var(--orange-dark);
+}
+
+.tag-yellow-color {
+  background-color: var(--yellow-light);
+  color: var(--yellow-dark);
+}
+
+.tag-green-color {
+  background-color: var(--green-light);
+  color: var(--green-dark);
 }
