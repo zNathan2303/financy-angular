@@ -1,0 +1,138 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 32px;
+  background-color: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  width: 448px;
+}
+
+.top-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  background-color: var(--gray-300);
+  border-radius: 50%;
+  font-size: 24px;
+  color: var(--gray-800);
+  font-weight: 500;
+  line-height: 40px;
+  text-align: center;
+}
+
+.profile-info .full-name {
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: var(--gray-800);
+  font-weight: 600;
+}
+
+.profile-info .email {
+  color: var(--gray-500);
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  font-weight: 400;
+}
+
+.divide-line {
+  background-color: var(--gray-200);
+  height: 1px;
+  width: 100%;
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.email-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.email-input p {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--gray-500);
+  font-weight: 400;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons button {
+  all: unset;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s;
+}
+
+.buttons .update {
+  background-color: var(--brand-base);
+  color: white;
+}
+
+.buttons .exit {
+  border: 1px solid var(--gray-300);
+  color: var(--gray-700);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+}
+
+.buttons .exit lucide-icon {
+  color: var(--danger);
+}
+
+.buttons button:hover {
+  transform: scale(103%);
+}
+
+.buttons button:active {
+  transform: scale(101%);
+}
+
+.buttons button:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
+}

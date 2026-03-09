@@ -59,10 +59,6 @@ ol {
   list-style: none;
 }
 
-html {
-  scrollbar-gutter: stable;
-}
-
 body {
   display: flex;
   min-height: 100dvh;

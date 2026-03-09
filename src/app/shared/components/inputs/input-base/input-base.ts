@@ -17,11 +17,13 @@ export class InputBase {
 
   isFocused = signal(false);
   isInvalid = signal(false);
+  isDisabled = input(false);
 
   getStateClasses() {
     return {
       error: this.isInvalid(),
       focused: this.isFocused(),
+      disabled: this.isDisabled(),
       'contains-text': this.formControlInput().value != '',
     };
   }

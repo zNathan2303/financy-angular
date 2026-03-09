@@ -1,0 +1,35 @@
+<app-header></app-header>
+<form [formGroup]="updateForm" (submit)="submit()">
+  <div class="top-content">
+    <div class="icon">
+      CT
+    </div>
+    <div class="profile-info">
+      <p class="full-name">{{ fullName }}</p>
+      <p class="email">{{ email }}</p>
+    </div>
+  </div>
+  <div class="divide-line"></div>
+  <div class="inputs">
+    <app-input-base [formControlInput]="fullNameFormControl" labelText="Nome completo" placeholder="Seu nome completo"
+      fieldName="fullName">
+      <lucide-icon [img]="UserRound" size="16" />
+    </app-input-base>
+    <div class="email-input">
+      <app-input-base [formControlInput]="emailFormControl" [isDisabled]="true" labelText="E-mail" placeholder=""
+        fieldName="email" type="email">
+        <lucide-icon [img]="Mail" size="16" />
+      </app-input-base>
+      <p>O e-mail não pode ser alterado</p>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="update" type="submit">
+      Salvar alterações
+    </button>
+    <button class="exit" type="button">
+      <lucide-icon [img]="LogOut" size="18" />
+      Sair da conta
+    </button>
+  </div>
+</form>
