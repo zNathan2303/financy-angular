@@ -1,6 +1,6 @@
 package br.dev.nathan.financy.services;
 
-import br.dev.nathan.financy.dtos.dashboard.CategoryDTO;
+import br.dev.nathan.financy.dtos.response.dashboard.CategoryDTO;
 import br.dev.nathan.financy.repositories.CategoryRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

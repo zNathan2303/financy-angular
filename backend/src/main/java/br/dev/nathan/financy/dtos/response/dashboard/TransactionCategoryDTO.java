@@ -1,4 +1,4 @@
-package br.dev.nathan.financy.dtos.dashboard;
+package br.dev.nathan.financy.dtos.response.dashboard;
 
 public record TransactionCategoryDTO(
     Long id,

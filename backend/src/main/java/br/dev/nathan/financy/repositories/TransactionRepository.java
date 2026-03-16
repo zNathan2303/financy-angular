@@ -1,6 +1,6 @@
 package br.dev.nathan.financy.repositories;
 
-import br.dev.nathan.financy.dtos.dashboard.TransactionDTO;
+import br.dev.nathan.financy.dtos.response.dashboard.TransactionDTO;
 import br.dev.nathan.financy.entities.Transaction;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,13 +13,13 @@ import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     @Query("""
-        SELECT new br.dev.nathan.financy.dtos.dashboard.TransactionDTO(
+        SELECT new br.dev.nathan.financy.dtos.response.dashboard.TransactionDTO(
             t.id,
             t.description,
             t.date,
             t.value,
             t.income,
-            new br.dev.nathan.financy.dtos.dashboard.TransactionCategoryDTO(
+            new br.dev.nathan.financy.dtos.response.dashboard.TransactionCategoryDTO(
                 c.id,
                 c.title,
                 c.color,

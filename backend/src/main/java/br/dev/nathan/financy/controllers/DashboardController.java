@@ -1,9 +1,11 @@
 package br.dev.nathan.financy.controllers;
 
-import br.dev.nathan.financy.dtos.dashboard.DashboardResponse;
+import br.dev.nathan.financy.config.JWTUserData;
+import br.dev.nathan.financy.dtos.response.dashboard.DashboardResponse;
 import br.dev.nathan.financy.services.CategoryService;
 import br.dev.nathan.financy.services.TransactionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,11 @@ public class DashboardController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<DashboardResponse> getDashboardData(@PathVariable UUID userId) {
+    @GetMapping
+    public ResponseEntity<DashboardResponse> getDashboardData(@AuthenticationPrincipal JWTUserData userData) {
+
+        UUID userId = userData.userId();
+
         DashboardResponse response = new DashboardResponse(
             transactionService.getTotalBalance(userId),
             transactionService.getMonthlyIncome(userId),

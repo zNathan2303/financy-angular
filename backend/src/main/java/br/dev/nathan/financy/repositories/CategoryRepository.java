@@ -1,6 +1,6 @@
 package br.dev.nathan.financy.repositories;
 
-import br.dev.nathan.financy.dtos.dashboard.CategoryDTO;
+import br.dev.nathan.financy.dtos.response.dashboard.CategoryDTO;
 import br.dev.nathan.financy.entities.Category;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("""
-        SELECT new br.dev.nathan.financy.dtos.dashboard.CategoryDTO(
+        SELECT new br.dev.nathan.financy.dtos.response.dashboard.CategoryDTO(
             c.id,
             c.title,
             c.color,
@@ -22,7 +22,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         FROM Category c
         LEFT JOIN Transaction t
             ON t.category.id = c.id
-            AND t.user.id = :userId
+        WHERE t.user.id = :userId
         GROUP BY c.id, c.title, c.color
         ORDER BY COALESCE(SUM(t.value), 0) DESC
     """)
