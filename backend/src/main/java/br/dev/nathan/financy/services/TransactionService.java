@@ -1,6 +1,8 @@
 package br.dev.nathan.financy.services;
 
+import br.dev.nathan.financy.dtos.response.TransactionResponse;
 import br.dev.nathan.financy.dtos.response.dashboard.TransactionDTO;
+import br.dev.nathan.financy.entities.Transaction;
 import br.dev.nathan.financy.repositories.TransactionRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -44,5 +46,12 @@ public class TransactionService {
 
     public BigDecimal getTotalBalance(UUID userId) {
         return transactionRepository.getTotalBalance(userId);
+    }
+
+    public List<TransactionResponse> getTransactionsByUserId(UUID userId) {
+        return transactionRepository.findByUserIdOrderByIdDesc(userId)
+            .stream()
+            .map(entity -> new TransactionResponse(entity))
+            .toList();
     }
 }

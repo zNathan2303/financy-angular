@@ -27,4 +27,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         ORDER BY COALESCE(SUM(t.value), 0) DESC
     """)
     List<CategoryDTO> findTop(@Param("userId") UUID userId, Pageable pageable);
+
+    List<Category> findByUserIdOrderByTitleAsc(UUID userId);
 }
