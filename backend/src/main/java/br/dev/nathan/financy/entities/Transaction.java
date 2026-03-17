@@ -1,5 +1,6 @@
 package br.dev.nathan.financy.entities;
 
+import br.dev.nathan.financy.dtos.request.TransactionRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,4 +40,13 @@ public class Transaction {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    public Transaction(TransactionRequest request, Category category, User user, Long id) {
+        this.id = id;
+        this.description = request.description();
+        this.date = request.date();
+        this.value = request.value();
+        this.income = request.income();
+        this.category = category;
+        this.user = user;
+    }
 }
