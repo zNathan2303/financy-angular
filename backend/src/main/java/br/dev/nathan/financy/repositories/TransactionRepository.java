@@ -65,5 +65,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     """)
     BigDecimal getTotalBalance(UUID userId);
 
-    List<Transaction> findByUserIdOrderByIdDesc(UUID userId);
+    List<Transaction> findByUserIdOrderByDateDescIdDesc(UUID userId);
 }

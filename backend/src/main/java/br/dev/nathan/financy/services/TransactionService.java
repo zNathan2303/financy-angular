@@ -59,7 +59,7 @@ public class TransactionService {
     }
 
     public List<TransactionResponse> getTransactionsByUserId(UUID userId) {
-        return transactionRepository.findByUserIdOrderByIdDesc(userId)
+        return transactionRepository.findByUserIdOrderByDateDescIdDesc(userId)
             .stream()
             .map(entity -> new TransactionResponse(entity))
             .toList();

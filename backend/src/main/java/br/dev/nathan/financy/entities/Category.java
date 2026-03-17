@@ -1,5 +1,6 @@
 package br.dev.nathan.financy.entities;
 
+import br.dev.nathan.financy.dtos.request.CategoryRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +32,13 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public Category(CategoryRequest request, User user, Long id) {
+        this.id = id;
+        this.title = request.title();
+        this.description = request.description();
+        this.color = request.color();
+        this.icon = request.icon();
+        this.user = user;
+    }
 }
