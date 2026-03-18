@@ -1,6 +1,7 @@
 package br.dev.nathan.financy.repositories;
 
 import br.dev.nathan.financy.dtos.response.dashboard.TransactionDTO;
+import br.dev.nathan.financy.entities.Category;
 import br.dev.nathan.financy.entities.Transaction;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
@@ -66,4 +68,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     BigDecimal getTotalBalance(UUID userId);
 
     List<Transaction> findByUserIdOrderByDateDescIdDesc(UUID userId);
+
+    Optional<Transaction> findByIdAndUserId(Long id, UUID userId);
 }

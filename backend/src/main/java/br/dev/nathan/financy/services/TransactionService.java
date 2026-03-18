@@ -6,6 +6,7 @@ import br.dev.nathan.financy.dtos.response.dashboard.TransactionDTO;
 import br.dev.nathan.financy.entities.Category;
 import br.dev.nathan.financy.entities.Transaction;
 import br.dev.nathan.financy.entities.User;
+import br.dev.nathan.financy.exceptions.ResourceOwnershipException;
 import br.dev.nathan.financy.repositories.CategoryRepository;
 import br.dev.nathan.financy.repositories.TransactionRepository;
 import br.dev.nathan.financy.repositories.UserRepository;
@@ -58,39 +59,60 @@ public class TransactionService {
         return transactionRepository.getTotalBalance(userId);
     }
 
-    public List<TransactionResponse> getTransactionsByUserId(UUID userId) {
+    public List<TransactionResponse> getTransactions(UUID userId) {
         return transactionRepository.findByUserIdOrderByDateDescIdDesc(userId)
             .stream()
             .map(entity -> new TransactionResponse(entity))
             .toList();
     }
 
-    public void createTransaction(UUID userId, TransactionRequest request) {
+    public TransactionResponse createTransaction(UUID userId, TransactionRequest request) {
+
         User user = userRepository.findById(userId).orElseThrow();
-        Category category = categoryRepository.findById(request.categoryId()).orElseThrow();
+        Category category = categoryRepository.findByIdAndUserId(request.categoryId(), userId)
+            .orElseThrow(() -> new ResourceOwnershipException());
 
         Transaction transaction = new Transaction(request, category, user, null);
 
-        transactionRepository.save(transaction);
+        Transaction transactionCreated = transactionRepository.save(transaction);
+
+        return new TransactionResponse(transactionCreated);
     }
 
-    public TransactionResponse getTransactionById(Long transactionId) {
+    public TransactionResponse getTransactionById(UUID userId, Long id) {
 
-        Transaction transactionEntity = transactionRepository.findById(transactionId).orElseThrow();
+        Transaction transaction = transactionRepository.findByIdAndUserId(id, userId)
+            .orElseThrow(() -> new ResourceOwnershipException());
 
-        return new TransactionResponse(transactionEntity);
+        TransactionResponse response = new TransactionResponse(transaction);
+
+        return response;
     }
 
-    public void deleteTransactionById(Long transactionId) {
-        transactionRepository.deleteById(transactionId);
+    public void deleteTransactionById(UUID userId, Long id) {
+
+        Transaction transaction = transactionRepository.findByIdAndUserId(id, userId)
+            .orElseThrow(() -> new ResourceOwnershipException());
+
+        transactionRepository.delete(transaction);
     }
 
-    public void updateTransaction(UUID userId, TransactionRequest request, Long id) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Category category = categoryRepository.findById(request.categoryId()).orElseThrow();
+    public TransactionResponse updateTransaction(UUID userId, TransactionRequest request, Long id) {
 
-        Transaction transaction = new Transaction(request, category, user, id);
+        Category category = categoryRepository.findByIdAndUserId(request.categoryId(), userId)
+            .orElseThrow(() -> new ResourceOwnershipException());
 
-        transactionRepository.save(transaction);
+        Transaction transaction = transactionRepository.findByIdAndUserId(id, userId)
+            .orElseThrow(() -> new ResourceOwnershipException());
+
+        transaction.setDescription(request.description());
+        transaction.setDate(request.date());
+        transaction.setValue(request.value());
+        transaction.setIncome(request.income());
+        transaction.setCategory(category);
+
+        Transaction transactionUpdated = transactionRepository.save(transaction);
+
+        return new TransactionResponse(transactionUpdated);
     }
 }

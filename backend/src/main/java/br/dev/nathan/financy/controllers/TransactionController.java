@@ -24,49 +24,57 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TransactionResponse>> getTransactionsFromAUser(@AuthenticationPrincipal JWTUserData userData) {
+    public ResponseEntity<List<TransactionResponse>> getTransactions(@AuthenticationPrincipal JWTUserData userData) {
 
         UUID userId = userData.userId();
 
-        List<TransactionResponse> transactions = transactionService.getTransactionsByUserId(userId);
+        List<TransactionResponse> transactions = transactionService.getTransactions(userId);
 
-        return ResponseEntity.ok(transactions);
+        return ResponseEntity.status(HttpStatus.OK).body(transactions);
     }
 
     @PostMapping
-    public ResponseEntity<Void> createTransaction(@AuthenticationPrincipal JWTUserData userData,
+    public ResponseEntity<TransactionResponse> createTransaction(@AuthenticationPrincipal JWTUserData userData,
                                                   @Valid @RequestBody TransactionRequest request) {
+
         UUID userId = userData.userId();
 
-        transactionService.createTransaction(userId, request);
+        TransactionResponse transactionCreated = transactionService.createTransaction(userId, request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(transactionCreated);
     }
 
-    @GetMapping("/{transactionId}")
-    public ResponseEntity<TransactionResponse> getTransactionById(@PathVariable Long transactionId) {
+    @GetMapping("/{id}")
+    public ResponseEntity<TransactionResponse> getTransactionById(@AuthenticationPrincipal JWTUserData userData,
+                                                                  @PathVariable Long id) {
 
-        TransactionResponse transaction = transactionService.getTransactionById(transactionId);
+        UUID userId = userData.userId();
 
-        return ResponseEntity.ok(transaction);
+        TransactionResponse transaction = transactionService.getTransactionById(userId, id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(transaction);
     }
 
-    @DeleteMapping("/{transactionId}")
-    public ResponseEntity<Void> deleteTransactionById(@PathVariable Long transactionId) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTransactionById(@AuthenticationPrincipal JWTUserData userData,
+                                                      @PathVariable Long id) {
 
-        transactionService.deleteTransactionById(transactionId);
+        UUID userId = userData.userId();
+
+        transactionService.deleteTransactionById(userId, id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/{transactionId}")
-    public ResponseEntity<Void> updateTransaction(@PathVariable Long transactionId,
+    @PutMapping("/{id}")
+    public ResponseEntity<TransactionResponse> updateTransaction(@PathVariable Long id,
                                                   @AuthenticationPrincipal JWTUserData userData,
                                                   @Valid @RequestBody TransactionRequest request) {
+
         UUID userId = userData.userId();
 
-        transactionService.updateTransaction(userId, request, transactionId);
+        TransactionResponse transactionUpdated = transactionService.updateTransaction(userId, request, id);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.OK).body(transactionUpdated);
     }
 }
