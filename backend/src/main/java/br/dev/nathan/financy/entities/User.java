@@ -1,5 +1,6 @@
 package br.dev.nathan.financy.entities;
 
+import br.dev.nathan.financy.dtos.request.RegisterUserRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,8 +29,14 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false, length = 300)
     private String email;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false, length = 1000)
     private String password;
+
+    public User(RegisterUserRequest request) {
+        this.name = request.name();
+        this.email = request.email();
+        this.password = request.password();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

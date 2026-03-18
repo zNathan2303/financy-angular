@@ -31,7 +31,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
         FROM Transaction t
         LEFT JOIN t.category c
         WHERE t.user.id = :userId
-        ORDER BY t.date DESC
+        ORDER BY t.date DESC, t.id DESC
     """)
     List<TransactionDTO> findTopRecent(@Param("userId") UUID userId, Pageable pageable);
 
