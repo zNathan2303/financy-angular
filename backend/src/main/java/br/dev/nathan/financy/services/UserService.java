@@ -1,5 +1,6 @@
 package br.dev.nathan.financy.services;
 
+import br.dev.nathan.financy.dtos.response.UserResponse;
 import br.dev.nathan.financy.entities.User;
 import br.dev.nathan.financy.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,10 @@ public class UserService {
         user.setName(newName);
 
         userRepository.save(user);
+    }
+
+    public UserResponse getUserInfo(UUID userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return new UserResponse(user.getName(), user.getEmail());
     }
 }
