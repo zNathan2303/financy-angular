@@ -6,7 +6,6 @@ import br.dev.nathan.financy.dtos.request.RegisterUserRequest;
 import br.dev.nathan.financy.dtos.response.LoginResponse;
 import br.dev.nathan.financy.dtos.response.RegisterUserResponse;
 import br.dev.nathan.financy.dtos.response.error.BodyErrorResponse;
-import br.dev.nathan.financy.dtos.response.error.ErrorResponse;
 import br.dev.nathan.financy.entities.User;
 import br.dev.nathan.financy.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +18,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,14 +58,20 @@ public class AuthController {
     })
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
 
-        UsernamePasswordAuthenticationToken userAndPass = new UsernamePasswordAuthenticationToken(request.email(), request.password());
-        Authentication authentication = authenticationManager.authenticate(userAndPass);
+        try {
+            UsernamePasswordAuthenticationToken userAndPass =
+                new UsernamePasswordAuthenticationToken(request.email(), request.password());
 
-        User user = (User) authentication.getPrincipal();
-        String token = tokenConfig.generateToken(user);
+            Authentication authentication = authenticationManager.authenticate(userAndPass);
 
+            User user = (User) authentication.getPrincipal();
+            String token = tokenConfig.generateToken(user);
 
-        return ResponseEntity.ok(new LoginResponse(token));
+            return ResponseEntity.ok(new LoginResponse(token));
+
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(401).body(new LoginResponse(null));
+        }
     }
 
     @PostMapping("/register")
