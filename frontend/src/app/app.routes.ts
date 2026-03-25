@@ -1,10 +1,13 @@
 import { Routes } from '@angular/router';
 import { Login } from './features/login/login';
-import { Dashboard } from './features/dashboard/dashboard';
-import { Transactions } from './features/transactions/transactions';
-import { Profile } from './features/profile/profile';
+import { authGuard } from './core/auth/guards/auth-guard';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full',
+  },
   {
     path: 'login',
     component: Login,
@@ -12,17 +15,20 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: Dashboard,
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/dashboard/dashboard').then((c) => c.Dashboard),
     title: 'Dashboard | Financy',
   },
   {
     path: 'transactions',
-    component: Transactions,
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/transactions/transactions').then((c) => c.Transactions),
     title: 'Transações | Financy',
   },
   {
     path: 'profile',
-    component: Profile,
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/profile/profile').then((c) => c.Profile),
     title: 'Perfil | Financy',
   },
 ];
