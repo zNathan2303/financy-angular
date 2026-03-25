@@ -1,6 +1,6 @@
 <div class="header" [ngClass]="{'no-categories': categoryTotalAmount().length === 0}">
   <p>CATEGORIAS</p>
-  <a href="#" class="link-to-another-page">
+  <a routerLink="/categories" class="link-to-another-page">
     Gerenciar
     <lucide-icon [img]="ChevronRight" size="20" />
   </a>

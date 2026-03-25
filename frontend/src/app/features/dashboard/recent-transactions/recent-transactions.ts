@@ -9,10 +9,11 @@ import {
 } from 'lucide-angular';
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import { CATEGORY_ICONS } from '../../../shared/icons/categories';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recent-transactions',
-  imports: [LucideAngularModule, NgClass, DatePipe, CurrencyPipe],
+  imports: [LucideAngularModule, NgClass, DatePipe, CurrencyPipe, RouterLink],
   templateUrl: './recent-transactions.html',
   styleUrl: './recent-transactions.css',
 })

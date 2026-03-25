@@ -30,6 +30,10 @@ header {
   color: var(--brand-base);
 }
 
+button {
+  all: unset;
+}
+
 .profile-icon {
   height: 36px;
   width: 36px;

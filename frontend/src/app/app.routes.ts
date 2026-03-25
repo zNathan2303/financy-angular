@@ -31,4 +31,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/profile/profile').then((c) => c.Profile),
     title: 'Perfil | Financy',
   },
+  {
+    path: '**',
+    canActivate: [authGuard],
+    loadComponent: () => import('./shared/pages/not-found/not-found').then((c) => c.NotFound),
+    title: 'Página não encontrada | Financy',
+  },
 ];
