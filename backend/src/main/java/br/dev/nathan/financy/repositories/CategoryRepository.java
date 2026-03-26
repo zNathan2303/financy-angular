@@ -24,9 +24,11 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
         FROM Category c
         LEFT JOIN Transaction t
             ON t.category.id = c.id
-        WHERE t.user.id = :userId
+            AND t.user.id = :userId
         GROUP BY c.id, c.title, c.color
-        ORDER BY COALESCE(SUM(t.value), 0) DESC
+        ORDER BY
+            COALESCE(SUM(t.value), 0) DESC,
+            c.title ASC
     """)
     List<CategoryDTO> findTop(@Param("userId") UUID userId, Pageable pageable);
 
