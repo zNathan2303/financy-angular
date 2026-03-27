@@ -32,22 +32,35 @@ export class Profile implements OnInit {
   ngOnInit() {
     this.loadingService.show();
 
-    this.userService.get().subscribe({
-      next: (res) => {
-        this.letterIcon.set(res.name.charAt(0).toUpperCase());
-        this.fullName.set(res.name);
-        this.email.set(res.email);
+    const userData = this.userService.getUserData();
 
-        this.fullNameFormControl.setValue(res.name);
-        this.emailFormControl.setValue(res.email);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        this.loadingService.hide();
-      },
-    });
+    if (userData) {
+      this.letterIcon.set(userData.name.charAt(0).toUpperCase());
+      this.fullName.set(userData.name);
+      this.email.set(userData.email);
+
+      this.fullNameFormControl.setValue(userData.name);
+      this.emailFormControl.setValue(userData.email);
+
+      this.loadingService.hide();
+    } else {
+      this.userService.get().subscribe({
+        next: (res) => {
+          this.letterIcon.set(res.name.charAt(0).toUpperCase());
+          this.fullName.set(res.name);
+          this.email.set(res.email);
+
+          this.fullNameFormControl.setValue(res.name);
+          this.emailFormControl.setValue(res.email);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.loadingService.hide();
+        },
+      });
+    }
   }
 
   fullNameFormControl = new FormControl({ value: this.fullName(), disabled: false });
@@ -65,6 +78,7 @@ export class Profile implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.userService.clearUser();
     this.router.navigateByUrl('/login');
   }
 }

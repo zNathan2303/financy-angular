@@ -7,7 +7,7 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  user = signal<User | null>(null);
+  private user = signal<User | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -17,5 +17,13 @@ export class UserService {
 
   getUserData() {
     return this.user();
+  }
+
+  clearUser() {
+    this.user.set(null);
+  }
+
+  getUserSignal() {
+    return this.user.asReadonly();
   }
 }

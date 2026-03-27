@@ -7,6 +7,8 @@ import { InputBase } from '../../shared/components/inputs/input-base/input-base'
 import { Auth } from '../../core/auth/services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { LoadingService } from '../../shared/services/loading-service';
+import { UserService } from '../../core/services/user/user-service';
+import { forkJoin, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +22,7 @@ export class Login {
 
   private authService = inject(Auth);
   private loadingService = inject(LoadingService);
+  private userService = inject(UserService);
   private router = inject(Router);
 
   submitted = signal(false);
@@ -64,18 +67,21 @@ export class Login {
 
     const formattedEmail = email.trim().toLowerCase();
 
-    this.authService.login({ email: formattedEmail, password }, rememberMe).subscribe({
-      next: (res) => {
-        this.router.navigateByUrl('/dashboard');
-      },
-      error: (err) => {
-        alert('Erro no login');
-        console.error('Erro no login', err);
-      },
-      complete: () => {
-        this.loadingService.hide();
-      },
-    });
+    this.authService
+      .login({ email: formattedEmail, password }, rememberMe)
+      .pipe(switchMap(() => this.userService.get()))
+      .subscribe({
+        next: (res) => {
+          this.router.navigateByUrl('/dashboard');
+        },
+        error: (err) => {
+          alert('Erro no login');
+          console.error('Erro no login', err);
+        },
+        complete: () => {
+          this.loadingService.hide();
+        },
+      });
   }
   goToCreateAccountPage() {
     this.router.navigateByUrl('/create-account');
