@@ -1,4 +1,4 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, effect } from '@angular/core';
 import { InputBase } from '../../../shared/components/inputs/input-base/input-base';
 import {
   FormControl,
@@ -27,7 +27,7 @@ import {
   Mailbox,
   ReceiptText,
 } from 'lucide-angular';
-import { CategoryRequest } from '../../../core/services/categories/category-model';
+import { Category, CategoryRequest } from '../../../core/services/categories/category-model';
 import { CategoryModalMode } from '../enums/category-modal-mode';
 import { CustomValidators } from '../../../shared/validators/custom-validators';
 
@@ -61,11 +61,11 @@ export class Modal {
   colors = ['green', 'blue', 'purple', 'pink', 'red', 'orange', 'yellow', 'gray'];
 
   closeModal = output<void>();
-  submitEvent = output<CategoryRequest>();
+  submitEvent = output<Category>();
 
   modalState = input<{
     mode: CategoryModalMode;
-    category?: CategoryRequest;
+    category?: Category;
   }>({
     mode: CategoryModalMode.CREATE,
   });
@@ -73,22 +73,22 @@ export class Modal {
   submitted = signal(false);
 
   titleFormControl = new FormControl(
-    { value: this.modalState().category?.title || '', disabled: false },
+    { value: '', disabled: false },
     {
       validators: [CustomValidators.trimRequired, Validators.maxLength(50)],
       nonNullable: true,
     },
   );
   descriptionFormControl = new FormControl(
-    { value: this.modalState().category?.description || '', disabled: false },
+    { value: '', disabled: false },
     {
       validators: [Validators.maxLength(50)],
     },
   );
-  iconFormControl = new FormControl(this.modalState().category?.icon || this.icons[0].name, {
+  iconFormControl = new FormControl(this.icons[0].name, {
     nonNullable: true,
   });
-  colorFormControl = new FormControl(this.modalState().category?.color || 'green', {
+  colorFormControl = new FormControl('green', {
     nonNullable: true,
   });
 
@@ -99,9 +99,25 @@ export class Modal {
     color: this.colorFormControl,
   });
 
+  constructor() {
+    effect(() => {
+      const category = this.modalState().category;
+
+      this.categoryForm.patchValue({
+        title: category?.title ?? '',
+        description: category?.description ?? null,
+        icon: category?.icon ?? this.icons[0].name,
+        color: category?.color ?? 'green',
+      });
+
+      this.categoryForm.markAsPristine();
+      this.categoryForm.markAsUntouched();
+      this.submitted.set(false);
+    });
+  }
+
   submit() {
     this.categoryForm.markAllAsTouched();
-
     this.submitted.set(true);
 
     if (this.categoryForm.invalid) return;
@@ -113,10 +129,12 @@ export class Modal {
       description == '' || description == null ? null : description.trim();
 
     this.submitEvent.emit({
+      id: this.modalState().category?.id ?? 0,
       title: titleFormatted,
       description: descriptionFormatted,
       icon,
       color,
+      itemsCount: this.modalState().category?.itemsCount ?? 0,
     });
   }
 }

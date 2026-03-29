@@ -25,4 +25,17 @@ export class CategoryService {
   deleteById(id: number) {
     return this.http.delete(`${this.pathCategories}/${id}`);
   }
+
+  getbyId(id: number) {
+    return this.http.get<Category>(`${this.pathCategories}/${id}`);
+  }
+
+  update({ title, description, color, icon }: CategoryRequest, id: number) {
+    return this.http.put<Category>(`${this.pathCategories}/${id}`, {
+      title,
+      description,
+      color,
+      icon,
+    });
+  }
 }

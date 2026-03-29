@@ -42,7 +42,7 @@
           <button class="trash" (click)="deleteCategory(category.id)">
             <lucide-icon [img]="Trash" size="16" />
           </button>
-          <button class="edit">
+          <button class="edit" (click)="openModalToUpdate(category.id)">
             <lucide-icon [img]="SquarePen" size="16" />
           </button>
         </div>

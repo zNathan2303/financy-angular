@@ -38,7 +38,10 @@ export class Categories {
   totalCategories = computed(() => this.categoriesArray().length);
   totalTransactions = computed(() => {
     const transactionsCount = this.categoriesArray().reduce((acc, category) => {
-      return acc + category.itemsCount;
+      if (typeof category.itemsCount === 'number') {
+        return acc + category.itemsCount;
+      }
+      return acc;
     }, 0);
     return transactionsCount;
   });
@@ -76,7 +79,7 @@ export class Categories {
 
   modalState = signal<{
     mode: CategoryModalMode;
-    category?: CategoryRequest;
+    category?: Category;
   }>({
     mode: CategoryModalMode.CREATE,
   });
@@ -104,7 +107,7 @@ export class Categories {
 
     this.categoryService.create({ color, description, icon, title }).subscribe({
       next: (res) => {
-        this.categoriesArray.update((categories) => [...categories, res]);
+        this.categoriesArray.update((categories) => [...categories, { ...res, itemsCount: 0 }]);
       },
       error: (err) => {
         alert('Ocorreu um erro ao criar a categoria');
@@ -137,6 +140,27 @@ export class Categories {
     });
   }
 
+  updateCategory({ color, description, icon, title, id }: Category) {
+    this.loadingService.show();
+
+    this.categoryService.update({ color, description, icon, title }, id).subscribe({
+      next: (res) => {
+        this.categoriesArray.update((categories) =>
+          categories.map((c) => (c.id === id ? { ...res, itemsCount: c.itemsCount } : c)),
+        );
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao atualizar a categoria');
+        console.error(err);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+        this.closeModal();
+      },
+    });
+  }
+
   openModalToCreate() {
     this.modalState.set({
       mode: CategoryModalMode.CREATE,
@@ -145,15 +169,43 @@ export class Categories {
     this.isModalOpen.set(true);
   }
 
+  openModalToUpdate(id: number) {
+    this.loadingService.show();
+
+    let categorySearched: Category;
+
+    this.categoryService.getbyId(id).subscribe({
+      next: (res) => {
+        categorySearched = res;
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao obter dados da categoria');
+        console.error(err);
+      },
+      complete: () => {
+        this.modalState.set({
+          mode: CategoryModalMode.EDIT,
+          category: categorySearched,
+        });
+        this.loadingService.hide();
+        this.isModalOpen.set(true);
+      },
+    });
+  }
+
   closeModal() {
     this.isModalOpen.set(false);
   }
 
-  handleSubmit({ color, description, icon, title }: CategoryRequest) {
-    const mode = this.modalState()?.mode;
+  handleSubmit(category: Category) {
+    const mode = this.modalState().mode;
 
     if (mode === CategoryModalMode.CREATE) {
-      this.createCategory({ color, description, icon, title });
+      this.createCategory(category);
+    }
+
+    if (mode === CategoryModalMode.EDIT) {
+      this.updateCategory(category);
     }
   }
 
