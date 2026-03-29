@@ -39,7 +39,7 @@
       <div class="top-content">
         <lucide-icon [img]="getCategoryIcon(category.icon)" size="16" [ngClass]="`tag-${category.color}-color`" />
         <div class="actions">
-          <button class="trash">
+          <button class="trash" (click)="deleteCategory(category.id)">
             <lucide-icon [img]="Trash" size="16" />
           </button>
           <button class="edit">

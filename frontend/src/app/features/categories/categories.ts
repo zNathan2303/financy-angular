@@ -104,6 +104,24 @@ export class Categories {
     });
   }
 
+  deleteCategory(id: number) {
+    this.loadingService.show();
+
+    this.categoryService.deleteById(id).subscribe({
+      next: (res) => {
+        this.categoriesArray.update((categories) => categories.filter((c) => c.id !== id));
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao excluir a categoria');
+        console.error(err);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+      },
+    });
+  }
+
   openModalToCreate() {
     this.modalState.set({
       mode: CategoryModalMode.CREATE,

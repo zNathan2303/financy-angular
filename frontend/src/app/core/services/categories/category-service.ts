@@ -6,18 +6,23 @@ import { Category, CategoryRequest } from './category-model';
   providedIn: 'root',
 })
 export class CategoryService {
+  private readonly pathCategories = '/financy/v1/categories';
   constructor(private http: HttpClient) {}
 
   getAll() {
-    return this.http.get<Category[]>('/financy/v1/categories');
+    return this.http.get<Category[]>(this.pathCategories);
   }
 
   create({ title, description, color, icon }: CategoryRequest) {
-    return this.http.post<Category>('/financy/v1/categories', {
+    return this.http.post<Category>(this.pathCategories, {
       title,
       description,
       color,
       icon,
     });
+  }
+
+  deleteById(id: number) {
+    return this.http.delete(`${this.pathCategories}/${id}`);
   }
 }
