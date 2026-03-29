@@ -1,0 +1,20 @@
+button {
+  all: unset;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  transition: 0.2s;
+  color: var(--gray-700);
+}
+
+button:hover {
+  background-color: var(--gray-200);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
+}

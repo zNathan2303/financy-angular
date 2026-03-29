@@ -36,12 +36,7 @@ main {
 }
 
 .top-container button {
-  appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  background: none;
-  font: inherit;
-
+  all: unset;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,11 +50,12 @@ main {
 }
 
 .top-container button:hover {
-  transform: scale(103%);
+  background-color: var(--brand-dark);
 }
 
-.top-container button:active {
-  transform: scale(101%);
+.top-container button:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
 }
 
 .top-container button lucide-icon {
@@ -160,33 +156,6 @@ main {
   align-items: center;
   justify-content: center;
   gap: 8px;
-}
-
-.actions button {
-  all: unset;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  background-color: white;
-  border: 1px solid var(--gray-300);
-  border-radius: 8px;
-  transition: 0.2s;
-}
-
-.actions button:hover {
-  transform: scale(105%);
-}
-
-.actions button:active {
-  transform: scale(102%);
-}
-
-.actions .trash {
-  color: var(--danger);
-}
-
-.actions .edit {
-  color: var(--gray-700);
 }
 
 .texts {

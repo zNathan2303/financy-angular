@@ -55,11 +55,12 @@ main {
 }
 
 .top-container button:hover {
-  transform: scale(103%);
+  background-color: var(--brand-dark);
 }
 
-.top-container button:active {
-  transform: scale(101%);
+.top-container button:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
 }
 
 .top-container button lucide-icon {
@@ -249,33 +250,6 @@ td .actions {
   gap: 8px;
 }
 
-td .actions button {
-  all: unset;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  background-color: white;
-  border: 1px solid var(--gray-300);
-  border-radius: 8px;
-  transition: 0.2s;
-}
-
-td .actions button:hover {
-  transform: scale(105%);
-}
-
-td .actions button:active {
-  transform: scale(102%);
-}
-
-td .actions .trash {
-  color: var(--danger);
-}
-
-td .actions .edit {
-  color: var(--gray-700);
-}
-
 tfoot tr td {
   padding: 20px 24px;
 }
@@ -315,6 +289,11 @@ td .pagination button {
   border-radius: 8px;
   color: var(--gray-700);
   transition: 0.1s;
+}
+
+td .pagination button:focus-visible {
+  outline: 2px solid var(--brand-base);
+  outline-offset: 2px;
 }
 
 td .pagination button:not(.selected) {

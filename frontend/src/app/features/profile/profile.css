@@ -104,6 +104,10 @@ form {
   cursor: pointer;
   width: 100%;
   transition: 0.2s;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
 }
 
 .buttons .update {
@@ -114,22 +118,18 @@ form {
 .buttons .exit {
   border: 1px solid var(--gray-300);
   color: var(--gray-700);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  text-align: center;
 }
 
 .buttons .exit lucide-icon {
   color: var(--danger);
 }
 
-.buttons button:hover {
-  transform: scale(103%);
+.buttons .update:hover {
+  background-color: var(--brand-dark);
 }
 
-.buttons button:active {
-  transform: scale(101%);
+.buttons .exit:hover {
+  background-color: var(--gray-200);
 }
 
 .buttons button:focus-visible {

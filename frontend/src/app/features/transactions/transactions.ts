@@ -24,6 +24,8 @@ import { Category } from '../../core/services/categories/category-model';
 import { CategoryService } from '../../core/services/categories/category-service';
 import { LoadingService } from '../../shared/services/loading-service';
 import { forkJoin } from 'rxjs';
+import { DeleteButton } from '../../shared/components/buttons/delete-button/delete-button';
+import { EditButton } from '../../shared/components/buttons/edit-button/edit-button';
 
 @Component({
   selector: 'app-transactions',
@@ -36,6 +38,8 @@ import { forkJoin } from 'rxjs';
     NgClass,
     DatePipe,
     CurrencyPipe,
+    DeleteButton,
+    EditButton,
   ],
   templateUrl: './transactions.html',
   styleUrl: './transactions.css',

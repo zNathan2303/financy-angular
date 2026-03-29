@@ -18,10 +18,12 @@ import { DecimalPipe, NgClass } from '@angular/common';
 import { CATEGORY_ICONS } from '../../shared/icons/categories';
 import { Modal } from './modal/modal';
 import { CategoryModalMode } from './enums/category-modal-mode';
+import { DeleteButton } from '../../shared/components/buttons/delete-button/delete-button';
+import { EditButton } from '../../shared/components/buttons/edit-button/edit-button';
 
 @Component({
   selector: 'app-categories',
-  imports: [Header, LucideAngularModule, NgClass, Modal, DecimalPipe],
+  imports: [Header, LucideAngularModule, NgClass, Modal, DecimalPipe, DeleteButton, EditButton],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })

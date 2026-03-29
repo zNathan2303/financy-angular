@@ -39,12 +39,8 @@
       <div class="top-content">
         <lucide-icon [img]="getCategoryIcon(category.icon)" size="16" [ngClass]="`tag-${category.color}-color`" />
         <div class="actions">
-          <button class="trash" (click)="deleteCategory(category.id)">
-            <lucide-icon [img]="Trash" size="16" />
-          </button>
-          <button class="edit" (click)="openModalToUpdate(category.id)">
-            <lucide-icon [img]="SquarePen" size="16" />
-          </button>
+          <app-delete-button (clickEvent)="deleteCategory(category.id)" />
+          <app-edit-button (clickEvent)="openModalToUpdate(category.id)" />
         </div>
       </div>
       <div class="texts">

@@ -132,12 +132,7 @@
 }
 
 .new-transaction button {
-  appearance: none;
-  -webkit-appearance: none;
-  border: none;
-  background: none;
-  font: inherit;
-
+  all: unset;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,9 +142,14 @@
   line-height: 20px;
   color: var(--brand-base);
   cursor: pointer;
-  padding: 10px;
-  margin: 10px;
+  padding: 12px 16px;
+  margin: 8px;
   transition: 0.2s;
+  border-radius: 8px;
+}
+
+.new-transaction button:hover {
+  background-color: var(--gray-200);
 }
 
 .new-transaction button:focus-visible {
