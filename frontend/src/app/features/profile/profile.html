@@ -5,14 +5,14 @@
       {{ letterIcon() }}
     </div>
     <div class="profile-info">
-      <p class="full-name">{{ fullName() }}</p>
-      <p class="email">{{ email() }}</p>
+      <p class="full-name">{{ user()?.name }}</p>
+      <p class="email">{{ user()?.email }}</p>
     </div>
   </div>
   <div class="divide-line"></div>
   <div class="inputs">
     <app-input-base [formControlInput]="fullNameFormControl" labelText="Nome completo" placeholder="Seu nome completo"
-      fieldName="fullName">
+      fieldName="fullName" [submitted]="submitted()">
       <lucide-icon [img]="UserRound" size="16" />
     </app-input-base>
     <div class="email-input">

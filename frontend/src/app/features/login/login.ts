@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import { LoadingService } from '../../shared/services/loading-service';
 import { UserService } from '../../core/services/user/user-service';
 import { forkJoin, switchMap } from 'rxjs';
+import { CustomValidators } from '../../shared/validators/custom-validators';
 
 @Component({
   selector: 'app-login-page',
@@ -30,14 +31,18 @@ export class Login {
   emailFormControl = new FormControl(
     { value: '', disabled: false },
     {
-      validators: [Validators.required, Validators.email, Validators.maxLength(300)],
+      validators: [CustomValidators.trimRequired, Validators.email, Validators.maxLength(300)],
       nonNullable: true,
     },
   );
   passwordFormControl = new FormControl(
     { value: '', disabled: false },
     {
-      validators: [Validators.required, Validators.minLength(8), Validators.maxLength(64)],
+      validators: [
+        CustomValidators.trimRequired,
+        Validators.minLength(8),
+        Validators.maxLength(64),
+      ],
       nonNullable: true,
     },
   );

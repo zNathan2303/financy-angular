@@ -11,22 +11,25 @@ import { User } from '../../../../core/services/user/user-model';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header implements OnInit {
+export class Header {
   private router = inject(Router);
   private userService = inject(UserService);
   private userServiceHttp = inject(UserServiceHttp);
 
-  currentUserInfo = signal<User | null>(null);
+  currentUserInfo = this.userService.user;
 
-  ngOnInit() {
-    const userWithInfo = this.userService.getUserInfo();
-    if (!userWithInfo) {
-      this.userServiceHttp.get();
+  letterIcon = computed(() => {
+    const name = this.currentUserInfo()?.name ?? '';
+    return name.slice(0, 2).toUpperCase();
+  });
+
+  constructor() {
+    if (!this.currentUserInfo()) {
+      this.userServiceHttp.get().subscribe((res) => {
+        this.userService.setUser(res);
+      });
     }
-    this.currentUserInfo.set(userWithInfo!);
   }
-
-  letterIcon = computed(() => this.currentUserInfo()?.name.slice(0, 2).toUpperCase());
 
   goToProfilePage() {
     this.router.navigateByUrl('/profile');

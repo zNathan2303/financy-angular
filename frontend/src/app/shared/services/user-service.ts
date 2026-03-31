@@ -1,21 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { User } from '../../core/services/user/user-model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  getUserInfo() {
+  private userSignal = signal<User | null>(this.readUser());
+
+  user = this.userSignal.asReadonly();
+
+  private readUser(): User | null {
     const userInString = localStorage.getItem('user-info');
+    if (!userInString) return null;
 
-    if (!userInString) return;
+    return JSON.parse(userInString) as User;
+  }
 
-    const userInJson: User = JSON.parse(userInString);
+  setUser(user: User) {
+    localStorage.setItem('user-info', JSON.stringify(user));
+    this.userSignal.set(user);
+  }
 
-    return userInJson;
+  changeName(name: string) {
+    const currentUser = this.userSignal();
+    if (!currentUser) return;
+
+    const updatedUser = { ...currentUser, name };
+    this.setUser(updatedUser);
   }
 
   clearUser() {
     localStorage.removeItem('user-info');
+    this.userSignal.set(null);
   }
 }

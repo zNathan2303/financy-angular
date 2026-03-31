@@ -1,13 +1,14 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Header } from '../../shared/components/layout/header/header';
 import { InputBase } from '../../shared/components/inputs/input-base/input-base';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule, Mail, UserRound, LogOut } from 'lucide-angular';
 import { Auth } from '../../core/auth/services/auth';
 import { Router } from '@angular/router';
 import { UserService as UserServiceHttp } from '../../core/services/user/user-service';
 import { UserService } from '../../shared/services/user-service';
 import { LoadingService } from '../../shared/services/loading-service';
+import { CustomValidators } from '../../shared/validators/custom-validators';
 
 @Component({
   selector: 'app-profile',
@@ -26,55 +27,77 @@ export class Profile implements OnInit {
   private loadingService = inject(LoadingService);
   private router = inject(Router);
 
-  letterIcon = signal('');
-  fullName = signal('');
-  email = signal('');
+  user = this.userService.user;
 
-  ngOnInit() {
-    this.loadingService.show();
+  letterIcon = computed(() => {
+    const name = this.user()?.name ?? '';
+    return name.slice(0, 2).toUpperCase();
+  });
 
-    const userData = this.userService.getUserInfo();
+  submitted = signal(false);
 
-    if (userData) {
-      this.letterIcon.set(userData.name.slice(0, 2).toUpperCase());
-      this.fullName.set(userData.name);
-      this.email.set(userData.email);
-
-      this.fullNameFormControl.setValue(userData.name);
-      this.emailFormControl.setValue(userData.email);
-
-      this.loadingService.hide();
-    } else {
-      this.userServiceHttp.get().subscribe({
-        next: (res) => {
-          this.letterIcon.set(res.name.slice(0, 2).toUpperCase());
-          this.fullName.set(res.name);
-          this.email.set(res.email);
-
-          this.fullNameFormControl.setValue(res.name);
-          this.emailFormControl.setValue(res.email);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-        complete: () => {
-          this.loadingService.hide();
-        },
-      });
-    }
-  }
-
-  fullNameFormControl = new FormControl({ value: this.fullName(), disabled: false });
-  emailFormControl = new FormControl({ value: this.email(), disabled: true });
+  fullNameFormControl = new FormControl(
+    { value: '', disabled: false },
+    { validators: [CustomValidators.trimRequired, Validators.maxLength(50)], nonNullable: true },
+  );
+  emailFormControl = new FormControl({ value: '', disabled: true });
 
   updateForm = new FormGroup({
     fullName: this.fullNameFormControl,
   });
 
+  ngOnInit() {
+    this.loadingService.show();
+
+    if (this.user()) {
+      this.fullNameFormControl.setValue(this.user()?.name ?? '');
+      this.emailFormControl.setValue(this.user()?.email ?? '');
+
+      this.loadingService.hide();
+      return;
+    }
+
+    this.userServiceHttp.get().subscribe({
+      next: (res) => {
+        this.userService.setUser(res);
+
+        this.fullNameFormControl.setValue(res.name);
+        this.emailFormControl.setValue(res.email);
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao carregar os dados do usuário');
+        console.error(err);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+      },
+    });
+  }
+
   submit() {
     this.updateForm.markAllAsTouched();
-    console.log(this.updateForm.value);
-    console.log(this.updateForm.valid);
+    this.submitted.set(true);
+
+    if (this.updateForm.invalid) return;
+
+    this.loadingService.show();
+
+    const { fullName } = this.updateForm.getRawValue();
+
+    this.userServiceHttp.patchName(fullName).subscribe({
+      next: (res) => {
+        this.userService.changeName(fullName);
+      },
+      error: (err) => {
+        alert('Ocorreu um erro ao atualizar o nome do usuário');
+        console.error(err);
+        this.loadingService.hide();
+      },
+      complete: () => {
+        this.loadingService.hide();
+      },
+    });
   }
 
   logout() {
