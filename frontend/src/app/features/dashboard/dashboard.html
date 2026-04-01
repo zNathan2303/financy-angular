@@ -27,7 +27,14 @@
   </div>
 
   <div class="transactions-and-categories">
-    <app-recent-transactions [recentTransactions]="recentTransactions()" />
+    <app-recent-transactions [recentTransactions]="recentTransactions()"
+      (newTransactionClickEvent)="openModalToCreate()" />
     <app-total-per-category [categoryTotalAmount]="categoryTotalAmount()" />
   </div>
 </main>
+@if (isModalOpen()) {
+<div class="modal-overlay" (click)="closeModal()">
+  <app-modal (closeModal)="closeModal()" (submitEvent)="handleSubmit($event)" [modalState]="modalState()"
+    [categories]="categories()" />
+</div>
+}

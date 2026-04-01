@@ -95,3 +95,15 @@ main {
 :host ::ng-deep .transactions-and-categories app-total-per-category {
   grid-area: a2;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -38,7 +38,7 @@
 }
 }
 <div class="new-transaction">
-  <button>
+  <button (click)="newTransactionClickEvent.emit()">
     <lucide-icon [img]="Plus" size="20" />
     <p>Nova transação</p>
   </button>

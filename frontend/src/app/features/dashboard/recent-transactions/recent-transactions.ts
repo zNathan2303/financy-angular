@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import {
   LucideAngularModule,
   CircleArrowUp,
@@ -23,6 +23,8 @@ export class RecentTransactions {
   readonly CircleArrowDown = CircleArrowDown;
   readonly ChevronRight = ChevronRight;
   readonly Plus = Plus;
+
+  newTransactionClickEvent = output();
 
   recentTransactions = input.required<Array<Transaction>>();
 
