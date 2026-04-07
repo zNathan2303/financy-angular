@@ -6,34 +6,33 @@
 
 ## Sobre o Projeto
 
-Este projeto é uma aplicação full-stack que gerencia transações financeiras que o usuário realiza diariamente, separando-as por categorias. Construído com o intuito de aprender a desenvolver aplicações front-end em angular e autenticação de usuários com o Spring Security.
+Aplicação full-stack para controle de finanças pessoais, permitindo gerenciar transações e categorias com autenticação segura via JWT. Construído com o intuito de aprender a desenvolver aplicações front-end em angular e autenticação de usuários com o Spring Security, além de integração entre frontend e backend.
 
 Design do site seguido conforme o protótipo do Figma da rocketseat: https://www.figma.com/community/file/1580994817007013257/financy
 
 ## Funcionalidades
 
-- Criação de conta.
-- Login com autenticação.
-- CRUD de categorias.
-- CRUD de transações.
-- Alteração de nome do usuário.
+- Criação de conta
+- Autenticação
+  - Login com geração de token JWT
+  - Rotas protegidas com Spring Security
+  - Validação de token em cada requisição
+- CRUD de categorias
+- CRUD de transações
+- Alteração de nome do usuário
 
 ## Tecnologias Utilizadas
 
-### Backend
-- Java 21.
-- Spring Boot 4.0.3.
-- Spring Web.
-- Spring Data JPA.
-- Spring Security.
-- Spring Validation.
-- Lombok.
-
-### Banco de Dados
+- Java 21
+  - Spring Boot 4.0.3
+  - Spring Web
+  - Spring Data JPA
+  - Spring Security
+  - Spring Validation
+  - Lombok
 - Angular 21
-
-### Database
 - PostgreSQL 17
+- Docker
 
 ## Visualizando o Projeto
 
@@ -43,7 +42,30 @@ E o Swagger em: https://financy-angular-java.onrender.com/swagger-ui/index.html
 
 **Obs:** A API pode demorar cerca 3 minutos para "acordar", pois como está hospedada no render de forma gratuita, acaba sendo desligada depois de um tempo sem requisições.
 
-## Executando o Projeto Localmente
+## Executando o Projeto Localmente com Docker
+
+O projeto utiliza Docker Compose para subir:
+
+- Frontend (Angular)
+- Backend (Spring Boot)
+- Banco de dados (PostgreSQL)
+
+### Pré-requisitos
+- Docker
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/zNathan2303/financy-angular-java
+```
+
+2. Na raiz do projeto, rode:
+```bash
+docker compose up --build
+```
+
+3. Acesse http://localhost:4200, crie uma conta, faça login, e teste as funcionalidades!
+
+## Executando o Projeto Localmente (Sem Docker)
 
 ### Pré-requisitos
 - JDK +21
@@ -52,14 +74,14 @@ E o Swagger em: https://financy-angular-java.onrender.com/swagger-ui/index.html
 - Angular CLI +21
 - PostgreSQL 17
 
-clone o repositório:
+Clone o repositório:
 ```bash
 git clone https://github.com/zNathan2303/financy-angular-java
 ```
 
 ### Banco de Dados
 
-1. Crie um banco de dados no postgreSQL.
+1. Crie um banco de dados no PostgreSQL.
 
 2. Crie as tabelas do script que estão em `database/tables.sql`
 
@@ -87,7 +109,7 @@ jwt.secret=sua_chave_secreta <-- Chave para assinar e validar os tokens JWT.
 npm install
 ```
 
-3. Rode a aplicação no modo de development:
+3. Rode a aplicação no modo de desenvolvimento:
 ```bash
 ng serve --configuration development
 ```
